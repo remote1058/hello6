@@ -8,6 +8,7 @@ bluetooth.onBluetoothDisconnected(function () {
 })
 bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Hash), function () {
     cmd = bluetooth.uartReadUntil(serial.delimiters(Delimiters.Hash))
+    basic.showString(cmd)
     if (cmd == "F") {
         maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 14)
         maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 14)
@@ -27,9 +28,6 @@ bluetooth.onUartDataReceived(serial.delimiters(Delimiters.Hash), function () {
     if (cmd == "S") {
         maqueen.motorStop(maqueen.Motors.All)
     }
-})
-loops.everyInterval(500, function () {
-    bluetooth.uartWriteNumber(maqueen.Ultrasonic(PingUnit.Centimeters))
 })
 basic.forever(function () {
 	
